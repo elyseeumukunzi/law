@@ -21,9 +21,9 @@
                </a>
             </div>
             <div class="card-body" >
-               <form action="admin" method="post">
+               <form method="POST">
                   <div class="input-group mb-3">
-                     <input type="text" class="form-control" placeholder="Username">
+                     <input type="text" class="form-control" placeholder="Username" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-user"></span>
@@ -31,7 +31,7 @@
                      </div>
                   </div>
                   <div class="input-group mb-3">
-                     <input type="password" class="form-control" placeholder="Password">
+                     <input type="password" class="form-control" placeholder="Password" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-lock"></span>
@@ -41,10 +41,10 @@
                   <div class="row">
                     
                      <div class="col-6">
-                        <a href="admin" class="btn btn-block btn-success" style="color: aliceblue;">Login as Admin</a>
+                        <button class="btn btn-block btn-success" style="color: aliceblue;" type="submit" name="admin">Login as Admin</a>
                      </div>
                      <div class="col-6">
-                        <a href="attorney" class="btn btn-block btn-warning" style="color: aliceblue;">Login as Attorney</a>
+                        <button class="btn btn-block btn-primary" style="color: aliceblue;" type="submit" name="lawyer">Login as Attorney</a>
                      </div>
                   </div>
                </form>

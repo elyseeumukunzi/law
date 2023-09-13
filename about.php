@@ -56,32 +56,32 @@
 				
 				<div class="fullwidth-block content">
 					<div class="container">
-						<h2 class="entry-title"> current-laywers	</h2>
+						<h2 class="entry-title"> Meet our team 	</h2>
 						<p>These profiles showcase the expertise, experience, and commitment of the attorneys available on your platform, helping users make informed choices when selecting their legal defenders.</p>
 
 						<div class="team">
-							<figure><img src="dummy/01.jpg" alt="person-1"></figure>
+							<figure><img src="dummy/LAW2.JPG" alt="person-1"></figure>
 							<h3 class="team-name">ISHIMWE Jean De dieu</h3>
 							<small class="team-desc">criminal defense lawyer</small>
 							<p>with a passion for protecting the rights of his clients. With over a decade of experience in the legal field, David has successfully represented clients in a wide range of cases, from misdemeanors to complex felony charges. </p>
 						</div>
 						<div class="team">
-							<figure><img src="dummy/02.jpg" alt="person-2"></figure>
+							<figure><img src="dummy/LAW4.jpg" alt="person-2"></figure>
 							<h3 class="team-name">NKIKABAHIZI Kenny</h3>
-							<small class="team-desc"> seasoned family law</small>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus quisquam hic cum laboriosam, est saepe amet magni labore, corrupti recusandae</p>
+							<small class="team-desc">criminal defense lawyer</small>
+							<p>with a passion for protecting the rights of his clients. With over a decade of experience in the legal field, David has successfully represented clients in a wide range of cases, from misdemeanors to complex felony charges. </p>
 						</div>
 						<div class="team">
-							<figure><img src="dummy/03.jpg" alt="person-3"></figure>
+							<figure><img src="dummy/LAW2.jpg" alt="person-3"></figure>
 							<h3 class="team-name">David Smith</h3>
-							<small class="team-desc">Engineer</small>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti quisquam, odit! Mollitia, porro. Quidem officiis, harum tempora, voluptates distinctio quis</p>
+							<small class="team-desc">criminal defense lawyer</small>
+							<p>with a passion for protecting the rights of his clients. With over a decade of experience in the legal field, David has successfully represented clients in a wide range of cases, from misdemeanors to complex felony charges. </p>
 						</div>
 						<div class="team">
-							<figure><img src="dummy/04.jpg" alt="person-4"></figure>
-							<h3 class="team-name">Howarrd Newman</h3>
+							<figure><img src="dummy/LAW2.jpg" alt="person-4"></figure>
+							<h3 class="team-name">Umukunzi elysee</h3>
 							<small class="team-desc">Computer Specialist</small>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae repellat ipsum optio nam! Error at minus fugit est voluptatum, placeat,</p>
+							<p>with a passion for protecting the rights of his clients. With over a decade of experience in the legal field, David has successfully represented clients in a wide range of cases, from misdemeanors to complex felony charges. </p>
 						</div>
 					</div>
 				</div>
@@ -91,15 +91,7 @@
 			<footer class="site-footer">
 				<div class="container">
 					<div class="subscribe-form">
-						<form action="#">
-							<label for="#">
-								<span>Do you want to get news?</span>
-								<span class>Join our news letter</span>
-							</label>
-							<div class="control">
-								<input type="text" placeholder="Enter your email to subscribe...">
-								<button type="submit"><img src="images/icon-envelope.png" alt=""></button>
-														</form>
+						
 							</div>
 					</div>
 					<div class="social-links">
