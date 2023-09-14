@@ -17,7 +17,7 @@
          <div class="card card-outline card-info">
             <div class="card-header text-center">
                <a href="index.php" class="brand-link">
-               <img src="asset/img/logo.png" alt="DSMS Logo" width="200">
+               <img src="asset/img/logo2.png" alt="DSMS Logo" width="200">
                </a>
             </div>
             <div class="card-body" >
@@ -41,13 +41,15 @@
                   <div class="row">
                     
                      <div class="col-6">
-                        <button class="btn btn-block btn-success" style="color: aliceblue;" type="submit" name="admin">Login as Admin</a>
+                        <button class="btn btn-block btn-success" style="color: aliceblue;" type="submit" name="admin">Login as user</a>
                      </div>
                      <div class="col-6">
-                        <button class="btn btn-block btn-primary" style="color: aliceblue;" type="submit" name="lawyer">Login as Attorney</a>
+                        <button class="btn btn-block btn-primary" style="color: aliceblue;" type="submit" name="lawyer">Login as Lawyer</a>
                      </div>
+                     
                   </div>
                </form>
+               <a href="signup.php"><center>Don't have an account</center></a>
             </div>
             <!-- /.card-body -->
          </div>

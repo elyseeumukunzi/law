@@ -128,7 +128,7 @@
 									<header>
 										<img src="images/icon-6.png" class="feature-icon">
 										<div class="feature-title-copy">
-											<h2 class="feature-title">Family Thins</h2>
+											<h2 class="feature-title">Family Things</h2>
 											<small class="feature-subtitle">fAMILY AND RELATIVEN DEFENDANTS</small>
 										</div>
 									</header>
