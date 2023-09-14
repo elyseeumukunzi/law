@@ -39,10 +39,18 @@
                </a>
             </li>
             <li class="nav-item">
+               <a href="index.php" class="nav-link">
+               <i class="nav-icon fa fa-calendar"></i>
+                  <p>
+                     My Appointments
+                  </p>
+               </a>
+            </li>
+            <li class="nav-item">
                <a href="attorney.php" class="nav-link">
                   <i class="nav-icon fa fa-landmark"></i>
                   <p>
-                     Law Office
+                     Law Officers
                   </p>
                </a>
             </li>
