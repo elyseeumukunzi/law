@@ -50,8 +50,6 @@ include('includes/config.php');
                               <th>Contact</th>
                               <th>Email</th>
                               <th>Service Name</th>
-                              <th>Attorney</th>
-                              <th>Remarks</th>
                               <th>Status</th>
                            </tr>
                         </thead>
@@ -68,16 +66,15 @@ include('includes/config.php');
                                  $status = $result->status; ?>
 
                                  <tr>
-                                    <td>REF-1233-21</td>
-                                    <td>John Kelly</td>
-                                    <td>09856789578</td>
-                                    <td>john@gmail.com</td>
-                                    <td>Service 1</td>
-                                    <td>Atty. Steve Jobs</td>
-                                    <td>Remaks</td>
+                                    <td><?php echo $cnt ?></td>
+                                    <td><?php echo $result->fullname; ?></td>
+                                    <td><?php echo $result->contacts; ?></td>
+                                    <td><?php echo $result->email; ?></td>
+                                    <td><?php echo $result->name; ?></td>
+                                    
                                     <td><span class="badge bg-warning">approved</span></td>
                                  </tr>
-                              <?php }
+                              <?php $cnt++; }
                            } ?>
 
 
