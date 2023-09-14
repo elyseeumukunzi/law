@@ -1,3 +1,6 @@
+<?php
+include ("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -21,7 +24,7 @@
             <div class="card-body" >
                <form method="POST">
                   <div class="input-group mb-3">
-                     <input type="text" class="form-control" placeholder="Full Name" required>
+                     <input type="text" name="name" class="form-control" placeholder="Full Name" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-user"></span>
@@ -29,7 +32,7 @@
                      </div>
                   </div>
                   <div class="input-group mb-3">
-                     <input type="text" class="form-control" placeholder="ID *16 digits" maxlength="16" minlength="16" required>
+                     <input type="text" name="id" class="form-control" placeholder="ID *16 digits" maxlength="16" minlength="16" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-address-card"></span>
@@ -37,7 +40,31 @@
                      </div>
                   </div>
                   <div class="input-group mb-3">
-                     <input type="text" class="form-control" placeholder="Phone number *10 digits" maxlength="16" minlength="16" required>
+                     <input type="text" name="contacts" class="form-control" placeholder="Phone number *10 digits" maxlength="16" minlength="16" required>
+                     <div class="input-group-append">
+                        <div class="input-group-text">
+                           <span class="fas fa-phone"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="input-group mb-3">
+                     <input type="email" name="email" class="form-control" placeholder="Email" required>
+                     <div class="input-group-append">
+                        <div class="input-group-text">
+                           <span class="fas fa-mail-bulk"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="input-group mb-3">
+                     <input type="email" class="form-control" name="adress" placeholder="Adress" required>
+                     <div class="input-group-append">
+                        <div class="input-group-text">
+                           <span class="fas fa-location-arrow"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="input-group mb-3">
+                     <input type="text" class="form-control" name="username" placeholder="username" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-user"></span>
@@ -45,25 +72,24 @@
                      </div>
                   </div>
                   <div class="input-group mb-3">
-                     <input type="password" class="form-control" placeholder="Password" required>
+                     <input type="password" class="form-control" name="password" placeholder="Password" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-lock"></span>
                         </div>
                      </div>
                   </div>
+                  
+                 
                   <div class="row">
                     
                      <div class="col-6">
-                        <button class="btn btn-block btn-success" style="color: aliceblue;" type="submit" name="admin">Login as user</a>
-                     </div>
-                     <div class="col-6">
-                        <button class="btn btn-block btn-primary" style="color: aliceblue;" type="submit" name="lawyer">Login as Lawyer</a>
+                        <button class="btn btn-block btn-success" type="submit" name="submit" style="color: aliceblue;" type="submit" name="admin">Submit</a>
                      </div>
                      
                   </div>
                </form>
-               <a href="signup.php"><center>Don't have an account</center></a>
+               <a href="login.php"><center>have an account? Login</center></a>
             </div>
             <!-- /.card-body -->
          </div>
@@ -72,3 +98,30 @@
       <!-- /.login-box -->
    </body>
 </html>
+<?php
+if(isset($_POST['submit']))
+{
+   $names=$_POST['name'];
+   $id=$_POST['id'];
+   $email=$_POST['email'];
+   $username=$_POST['username'];
+   $contacts=$_POST['contacts'];
+   $password=$_POST['password'];
+   $adress=$_POST['adress'];
+   $status=1; //default account status
+
+   $sql="INSERT INTO  users(fullname,id,contacts,email,adress,username,password,status) VALUES(?,?,?,?,?,?,?,?)";
+$query = $dbh->prepare($sql);
+$query->execute(array($names,$id,$contacts,$email,$adress,$username,$password,$status));
+$lastInsertId = $dbh->lastInsertId();
+if($lastInsertId)
+{
+echo "<script>alert('account created');</script>"
+}
+else 
+{
+$error="Something went wrong. Please try again";
+}
+
+} 
+?>
