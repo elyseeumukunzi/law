@@ -18,7 +18,7 @@ include("includes/config.php");
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6 animated bounceInRight">
-                     <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-user-tie"></span> Add Lawyer</h1>
+                     <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-user-tie"></span> edit Lawyer</h1>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
@@ -46,57 +46,68 @@ include("includes/config.php");
                            <div class="col-md-12">
                               <div class="row">
                                  <div class="col-md-12">
+                        <?php
+                        $lawid=$_GET['lawid']; 
+                        $sql = "SELECT * from lawyer where lawid = ?";
+                        $query = $dbh -> prepare($sql);
+                        $query->execute(array($lawid));
+                        $results=$query->fetchAll(PDO::FETCH_OBJ);
+                        $cnt=1;
+                        if($query->rowCount() > 0)
+                        {
+                        foreach($results as $result)
+                        {  ?>
                                     <div class="form-group">
-                                       <label><span class="fa fa-user-tie"></span> Lawyer Information</label>
+                                       <label><span class="fa fa-user-tie"></span> <?php  echo $result->fullname; ?></label>
                                     </div>
                                  </div>
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <label>Law Office</label>
-                                       <input type="text" class="form-control" name="office" placeholder="Law Office" required>
+                                       <input type="text" class="form-control" name="office" placeholder="Law Office" value="<?php echo $result->office; ?>" required>
                                     </div>
                                  </div>
                                  <div class="col-md-4">
                                     <div class="form-group">
                                        <label>Full Name</label>
-                                       <input type="text" class="form-control" name="names" placeholder="Full Name" required>
+                                       <input type="text" class="form-control" name="names" placeholder="Full Name" value="<?php echo $result->fullname; ?>" required>
                                     </div>
                                  </div>
                                  <div class="col-md-4">
                                     <div class="form-group">
                                        <label>Contact</label>
-                                       <input type="text" class="form-control" name="contacts" minlength="10" maxlength="10" placeholder="ex. 0785241454" required>
+                                       <input type="text" class="form-control" name="contacts" minlength="10" maxlength="10" placeholder="ex. 0785241454" value="<?php echo $result->contacts; ?>" required>
                                     </div>
                                  </div>
                                  <div class="col-md-4">
                                     <div class="form-group">
                                        <label>Email</label>
-                                       <input type="text" class="form-control" name="email" placeholder="ex. email@gmail.com" required>
+                                       <input type="text" class="form-control" name="email" value="<?php echo $result->email; ?>" placeholder="ex. email@gmail.com" required>
                                     </div>
                                  </div>
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <label>Address</label>
-                                       <input type="text" class="form-control" name="adress" placeholder="ex. 123 kigali. kicukiro kagarama" required>
+                                       <input type="text" class="form-control" name="adress" value="<?php echo $result->adress; ?>" placeholder="ex. 123 kigali. kicukiro kagarama" required>
                                     </div>
                                  </div>
                                 
                                  <div class="col-md-4">
                                     <div class="form-group">
                                        <label>Education</label>
-                                       <input type="text" name="education" class="form-control" placeholder="Education" required>
+                                       <input type="text" name="education" class="form-control"  value="<?php echo $result->education; ?>" placeholder="Education" required>
                                     </div>
                                  </div>
                                  <div class="col-md-4">
                                     <div class="form-group">
-                                       <label>Licence</label>
+                                       <label>Change licence</label>
                                        <input type="file" class="form-control" name="licence" >
                                     </div>
                                  </div>
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <label>Professional And Legal Experience</label>
-                                       <textarea class="form-control" name="experience" required></textarea>
+                                       <textarea class="form-control"  name="experience" required> <?php echo $result->experience; ?> </textarea>
                                     </div>
                                  </div>
                                  
@@ -108,13 +119,13 @@ include("includes/config.php");
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label>Username</label>
-                                       <input type="text" class="form-control" name="username" placeholder="Username" required>
+                                       <input type="text" class="form-control" name="username" value="<?php echo $result->username; ?>" placeholder="Username" required>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label>Password</label>
-                                       <input type="password" name="password" class="form-control" placeholder="**********" required>
+                                       <input type="password" name="password" class="form-control" value="<?php echo $result->password; ?>" placeholder="**********" required>
                                     </div>
                                  </div>
                               </div>
@@ -125,9 +136,10 @@ include("includes/config.php");
                      <!-- /.card-body -->
 
                      <div class="card-footer">
-                        <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" name="submit" class="btn btn-primary">UPDATE</button>
                      </div>
                   </form>
+                  <?php } } ?>
                </div>
             </div>
             <!-- /.container-fluid -->
@@ -152,6 +164,7 @@ if(isset($_POST['submit']))
    @$office=$_POST['office'];
    $contact=$_POST['contacts'];
    $username=$_POST['username'];
+   
    $password=md5($_POST['password']); 
    $education=$_POST['education']; 
    $experience=$_POST['experience']; 
@@ -160,13 +173,13 @@ if(isset($_POST['submit']))
    $status=1; 
    //default account status
 
-   $sql="INSERT INTO  lawyer(fullname,email,adress,contacts,office,education,experience,license,username,password,status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+   $sql="update lawyer SET fullname=?,email=?,adress=?,contacts=?,office=?,education=?,experience=?,license=?,username=?,password=? where lawid = ? ";
 $query = $dbh->prepare($sql);
-$query->execute(array($names,$email,$adress,$contact,$office,$education,$experience,$licence,$username,$password,$status));
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
+$query->execute(array($names,$email,$adress,$contact,$office,$education,$experience,$licence,$username,$password,$lawid));
+
+if($query)
 {
-echo "<script>alert('Lawyer added ');window.location='lawyers.php'; </script>";
+echo "<script>alert('Information updated');window.location='lawyers.php'; </script>";
 }
 else 
 {

@@ -21,7 +21,7 @@
                   <div class="col-sm-6">
                      <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Lawyers</li>
+                        <li class="breadcrumb-item active">Users</li>
                      </ol>
                   </div>
                   <a class="btn btn-sm elevation-2" href="addlawyer.php" style="margin-top: 20px;margin-left: 10px;background-color: #05445E;color: #ddd;"><i
@@ -72,7 +72,7 @@
                            <td><?php echo $result->education; ?></td>
 
                            <td class="text-right">
-                              <a class="btn btn-sm btn-info" href="viewlawyer.php?lawid=<?php echo $result->lawid; ?>"><i class="fa fa-eye"></i> view profile</a>
+                              <a class="btn btn-sm btn-info" href="#"><i class="fa fa-eye"></i> view profile</a>
                               <a class="btn btn-sm btn-success" href="editlawyer.php?lawid=<?php echo $result->lawid; ?>"><i class="fa fa-edit"></i> edit</a>
                               <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
                                     class="fa fa-trash-alt"></i> delete</a>

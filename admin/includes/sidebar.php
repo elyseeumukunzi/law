@@ -86,7 +86,7 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="office.php" class="nav-link">
+               <a href="users.php" class="nav-link">
                   <i class="nav-icon fa fa-users"></i>
                   <p>
                      Manage users 
