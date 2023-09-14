@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php include('includes/config.php'); ?>
 
-<?php include 'includes/header.php'?>
-   <body class="hold-transition sidebar-mini layout-fixed">
-      <div class="wrapper">
-         
-        <?php include 'includes/topbar.php'?>
-        <?php include 'includes/sidebar.php'?>
+<?php include 'includes/header.php' ?>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+   <div class="wrapper">
+
+      <?php include 'includes/topbar.php' ?>
+      <?php include 'includes/sidebar.php' ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -15,16 +17,18 @@
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                        <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-user-tie"></span> List of Attorney</h1>
+                     <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-user-tie"></span> List of
+                        Attorney</h1>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
                      <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Office</li>
+                        <li class="breadcrumb-item active">Lawyers</li>
                      </ol>
                   </div>
-                  <a class="btn btn-sm elevation-2" href="add-attorney.php" style="margin-top: 20px;margin-left: 10px;background-color: #05445E;color: #ddd;"><i
+                  <a class="btn btn-sm elevation-2" href="add-attorney.php"
+                     style="margin-top: 20px;margin-left: 10px;background-color: #05445E;color: #ddd;"><i
                         class="fa fa-user-plus"></i>
                      Add New</a>
                   <!-- /.col -->
@@ -39,74 +43,71 @@
             <div class="container-fluid">
                <div class="card card-info">
 
-               <div class="col-md-12 table-responsive"><br>
-                  <table id="example1" class="table table-bordered table-hover">
-                     <thead>
-                        <tr>
-                           <th>Profile</th>
-                           <th>Full Name</th>
-                           <th>Address</th>
-                           <th>Contact</th>
-                           <th>Email</th>
-                           <th>Education</th>
-                           <th>Legal Experience</th>
-                           <th class="text-right">Action</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td><img src="../asset/img/avatar.png" width="50" alt="User Image"></td>
-                           <td>	William Smith</td>
-                           <td>123 st. Manggahan, Pasig</td>
-                           <td>09856789578</td>
-                           <td>apclaw@gmail.com</td>
-                           <td>Political Science</td>
-                           <td>Political Science</td>
-                           <td class="text-right">
-                              <a class="btn btn-sm btn-success" href="#"><i class="fa fa-edit"></i> edit</a>
-                              <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
-                                    class="fa fa-trash-alt"></i> delete</a>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td><img src="../asset/img/avatar.png" width="50" alt="User Image"></td>
-                           <td>Charde Marshall</td>
-                           <td>675 st. Manggahan, Pasig</td>
-                           <td>09857687676</td>
-                           <td>annalawfrim@gmail.com</td>
-                           <td>Political Science</td>
-                           <td>Political Science</td>
-                           <td class="text-right">
-                              <a class="btn btn-sm btn-success" href="#"><i class="fa fa-edit"></i> edit</a>
-                              <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
-                                    class="fa fa-trash-alt"></i> delete</a>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td><img src="../asset/img/avatar.png" width="50" alt="User Image"></td>
-                           <td>Quinn Flynn</td>
-                           <td>345 st. Manggahan, Pasig</td>
-                           <td>09485675647</td>
-                           <td>abclaw@gmail.com</td>
-                           <td>Political Science</td>
-                           <td>Political Science</td>
-                           <td class="text-right">
-                              <a class="btn btn-sm btn-success" href="#"><i class="fa fa-edit"></i> edit</a>
-                              <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
-                                    class="fa fa-trash-alt"></i> delete</a>
-                           </td>
-                        </tr>
+                  <div class="col-md-12 table-responsive"><br>
+                     <table id="example1" class="table table-bordered table-hover">
+                        <thead>
+                           <tr>
+                              <th>Profile</th>
+                              <th>Full Name</th>
+                              <th>Contact</th>
+                              <th>Email</th>
+                              <th>Education</th>
+                              <th>Legal Experience</th>
+                              <th>Expertise</th>
+                              <th class="text-right">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <?php $sql = "SELECT * from lawyer order by lawid desc";
+                           $query = $dbh->prepare($sql);
+                           $query->execute();
+                           $results = $query->fetchAll(PDO::FETCH_OBJ);
+                           $cnt = 1;
+                           if ($query->rowCount() > 0) {
+                              foreach ($results as $result) {
+                                 $status = $result->status; ?>
+
+                                 <tr>
+                                    <td><img src="../asset/img/avatar.png" width="50" alt="User Image"></td>
+                                    <td>
+                                       <?php echo $result->fullname; ?>
+                                    </td>
+                                    <td><?php echo $result->contacts; ?></td>
+                                    <td><?php echo $result->email; ?></td>
+                                    <td><?php echo $result->education; ?></td>
+                                    <td><?php echo $result->experience; ?></td>
+                                    <td> <ul><?php $sql = "SELECT * from services WHERE lawyerid=?";
+                           $query = $dbh->prepare($sql);
+                           $query->execute(array($result->lawid));
+                           $results = $query->fetchAll(PDO::FETCH_OBJ);
+                           $cnt = 1;
+                           if ($query->rowCount() > 0) {
+                              foreach ($results as $services) {
+                                 $status = $result->status; ?> 
+                                 <li><span><?php  echo $services->name; ?></span>,</li>
+                                 <?php  }}?>
+                                 </ul>
+                              </td>
+                                    <td class="text-right">
+                                       <a class="btn btn-sm btn-info" href="request.php?lawid=<?php echo $result->lawid; ?>"><i class="fa fa-eye"></i> Go to</a>
+                                      
+                                    </td>
+                                 </tr>
+                              <?php }
+                           } ?>
+
+
                         </tbody>
-                  </table>
+                     </table>
+                  </div>
                </div>
             </div>
-      </div>
 
-   <!-- /.container-fluid -->
-   </section>
-   <!-- /.content -->
-   </div>
-   <!-- /.content-wrapper -->
+            <!-- /.container-fluid -->
+         </section>
+         <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
    </div>
    <!-- ./wrapper -->
    <div id="delete" class="modal animated rubberBand delete-modal" role="dialog">

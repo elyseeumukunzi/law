@@ -15,7 +15,7 @@
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                        <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-graduation-cap"></span> Lawywes List</h1>
+                        <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-users"></span>Users List</h1>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
@@ -24,9 +24,7 @@
                         <li class="breadcrumb-item active">Users</li>
                      </ol>
                   </div>
-                  <a class="btn btn-sm elevation-2" href="addlawyer.php" style="margin-top: 20px;margin-left: 10px;background-color: #05445E;color: #ddd;"><i
-                        class="fa fa-plus"></i>
-                     Add New</a>
+                 
                   <!-- /.col -->
                </div>
                <!-- /.row -->
@@ -47,13 +45,13 @@
                            <th>Address</th>
                            <th>Contact</th>
                            <th>Email</th>
-                           <th>Experience History</th>
-                           <th>Education</th>
+                           <th>ID</th>
+                           <th>Username</th>
                            <th class="text-right">Action</th>
                         </tr>
                      </thead>
                      <tbody>
-                        <?php $sql = "SELECT * from lawyer order by lawid desc";
+                        <?php $sql = "SELECT * from users order by userid desc";
                         $query = $dbh -> prepare($sql);
                         $query->execute();
                         $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -68,11 +66,11 @@
                            <td><?php echo $result->adress; ?></td>
                            <td><?php echo $result->contacts; ?></td>
                            <td><?php echo $result->email; ?></td>
-                           <td><?php echo $result->experience; ?></td>
-                           <td><?php echo $result->education; ?></td>
+                           <td><?php echo $result->id; ?></td>
+                           <td><?php echo $result->username; ?></td>
 
                            <td class="text-right">
-                              <a class="btn btn-sm btn-info" href="#"><i class="fa fa-eye"></i> view profile</a>
+                            
                               <a class="btn btn-sm btn-success" href="editlawyer.php?lawid=<?php echo $result->lawid; ?>"><i class="fa fa-edit"></i> edit</a>
                               <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
                                     class="fa fa-trash-alt"></i> delete</a>

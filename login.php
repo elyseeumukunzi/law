@@ -93,7 +93,7 @@ if(isset($_POST['loginlawyer']))
 {
 $username=$_POST['username'];
 $password=md5($_POST['password']);
-$sql ="SELECT fullname,lawid,password,username FROM lawyer WHERE username=? and password=?";
+$sql ="SELECT fullname,lawid,password,username FROM lawyer WHERE username=? and password=? AND status!=0";
 $query= $dbh -> prepare($sql);
 $query-> execute(array($username,$password));
 $results=$query->fetchAll(PDO::FETCH_OBJ);
