@@ -20,7 +20,7 @@ session_start();
          <!-- /.login-logo -->
          <div class="card card-outline card-info">
             <div class="card-header text-center">
-               <a href="#" class="brand-link">
+               <a href="index.php" class="brand-link">
                <img src="asset/img/logo2.png" alt="DSMS Logo" width="200">
                </a>
             </div>
@@ -45,7 +45,7 @@ session_start();
                   <div class="row">
                     
                      <div class="col-6">
-                        <button class="btn btn-block btn-success" style="color: aliceblue;" type="submit" name="loginuser">Login as user</a>
+                        <a href='login.php' class="btn btn-block btn-success" style="color: aliceblue;" type="button">Login as user</a>
                      </div>
                      <div class="col-6">
                         <button class="btn btn-block btn-primary" style="color: aliceblue;" type="submit" name="loginlawyer">Login as Lawyer</a>
@@ -63,32 +63,6 @@ session_start();
    </body>
 </html>
 <?php
-if(isset($_POST['loginuser']))
-{
-$username=$_POST['username'];
-$password=md5($_POST['password']);
-$sql ="SELECT fullname,userid,password,username FROM users WHERE username=? and password=?";
-$query= $dbh -> prepare($sql);
-$query-> execute(array($username,$password));
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-foreach($results as $result)
-	{
-if($query->rowCount() > 0)
-{
-$_SESSION['userid']=$result->userid;
-$_SESSION['fname']=$result->fullname;
-$_SESSION['role']="user";
-
-echo "<script type='text/javascript'> document.location = 'admin'; </script>";
-} else{
-  
-  echo "<script>alert('Invalid Details');</script>";
-
-  
-}
-}
-}
-
 if(isset($_POST['loginlawyer']))
 {
 $username=$_POST['username'];
@@ -106,10 +80,9 @@ $_SESSION['fname']=$result->fullname;
 $_SESSION['role']="lawyer";
 
 echo "<script type='text/javascript'> document.location = 'admin'; </script>";
-} elseif($query->rowCount <= 0){
+} else{
   
-echo "<script> window.alert('invalid login');</script>";
-  
+  echo "<script>alert('Invalid Details');</script>";
 
   
 }

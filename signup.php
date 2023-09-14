@@ -19,7 +19,7 @@ include ("config.php");
          <!-- /.login-logo -->
          <div class="card card-outline card-info">
             <div class="card-header text-center">
-               <h2>Create new account</h2>
+               <h2>Create new account</h2> *only users
             </div>
             <div class="card-body" >
                <form method="POST">
@@ -40,7 +40,7 @@ include ("config.php");
                      </div>
                   </div>
                   <div class="input-group mb-3">
-                     <input type="text" name="contacts" class="form-control" placeholder="Phone number *10 digits" maxlength="16" minlength="16" required>
+                     <input type="text" name="contacts" class="form-control" placeholder="Phone number *10 digits" maxlength="10" minlength="10" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-phone"></span>
@@ -56,7 +56,7 @@ include ("config.php");
                      </div>
                   </div>
                   <div class="input-group mb-3">
-                     <input type="email" class="form-control" name="adress" placeholder="Adress" required>
+                     <input type="text" class="form-control" name="adress" placeholder="Adress" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-location-arrow"></span>
@@ -106,7 +106,7 @@ if(isset($_POST['submit']))
    $email=$_POST['email'];
    $username=$_POST['username'];
    $contacts=$_POST['contacts'];
-   $password=$_POST['password'];
+   $password=md5($_POST['password']); 
    $adress=$_POST['adress'];
    $status=1; //default account status
 
@@ -116,11 +116,12 @@ $query->execute(array($names,$id,$contacts,$email,$adress,$username,$password,$s
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-echo "<script>alert('account created');</script>"
+echo "<script>alert('account created');window.location='login.php'; </script>";
 }
 else 
 {
-$error="Something went wrong. Please try again";
+   echo "<script>alert('Something went wrong please retry'); </script>";
+
 }
 
 } 

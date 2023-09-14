@@ -1,5 +1,5 @@
 <?php
-include("config.php"); 
+include("../config.php"); 
 session_start();
 ?>
 <!DOCTYPE html>
@@ -11,9 +11,9 @@ session_start();
       <!-- Google Font: Source Sans Pro -->
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
       <!-- Font Awesome -->
-      <link rel="stylesheet" href="asset/fontawesome/css/all.min.css">
+      <link rel="stylesheet" href="../asset/fontawesome/css/all.min.css">
       <!-- Theme style -->
-      <link rel="stylesheet" href="asset/css/adminlte.min.css">
+      <link rel="stylesheet" href="../asset/css/adminlte.min.css">
    </head>
    <body class="hold-transition login-page">
       <div class="login-box">
@@ -21,7 +21,7 @@ session_start();
          <div class="card card-outline card-info">
             <div class="card-header text-center">
                <a href="#" class="brand-link">
-               <img src="asset/img/logo2.png" alt="DSMS Logo" width="200">
+               <img src="../asset/img/logoadmin.png" alt="DSMS Logo" width="200">
                </a>
             </div>
             <div class="card-body" >
@@ -44,16 +44,13 @@ session_start();
                   </div>
                   <div class="row">
                     
+                    
                      <div class="col-6">
-                        <button class="btn btn-block btn-success" style="color: aliceblue;" type="submit" name="loginuser">Login as user</a>
-                     </div>
-                     <div class="col-6">
-                        <button class="btn btn-block btn-primary" style="color: aliceblue;" type="submit" name="loginlawyer">Login as Lawyer</a>
+                        <button class="btn btn-block btn-primary" style="color: aliceblue;" type="submit" name="login">Login</a>
                      </div>
                      
                   </div>
                </form>
-               <a href="signup.php"><center>Don't have an account</center></a>
             </div>
             <!-- /.card-body -->
          </div>
@@ -63,11 +60,11 @@ session_start();
    </body>
 </html>
 <?php
-if(isset($_POST['loginuser']))
+if(isset($_POST['login']))
 {
 $username=$_POST['username'];
 $password=md5($_POST['password']);
-$sql ="SELECT fullname,userid,password,username FROM users WHERE username=? and password=?";
+$sql ="SELECT fullname,adminid,password,username FROM admin WHERE username=? and password=?";
 $query= $dbh -> prepare($sql);
 $query-> execute(array($username,$password));
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -77,42 +74,16 @@ if($query->rowCount() > 0)
 {
 $_SESSION['userid']=$result->userid;
 $_SESSION['fname']=$result->fullname;
-$_SESSION['role']="user";
+$_SESSION['role']="admin";
 
-echo "<script type='text/javascript'> document.location = 'admin'; </script>";
+echo "<script type='text/javascript'> document.location = '../admin'; </script>";
 } else{
   
   echo "<script>alert('Invalid Details');</script>";
-
   
 }
 }
 }
 
-if(isset($_POST['loginlawyer']))
-{
-$username=$_POST['username'];
-$password=md5($_POST['password']);
-$sql ="SELECT fullname,lawid,password,username FROM lawyer WHERE username=? and password=?";
-$query= $dbh -> prepare($sql);
-$query-> execute(array($username,$password));
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-foreach($results as $result)
-	{
-if($query->rowCount() > 0)
-{
-$_SESSION['userid']=$result->lawid;
-$_SESSION['fname']=$result->fullname;
-$_SESSION['role']="lawyer";
 
-echo "<script type='text/javascript'> document.location = 'admin'; </script>";
-} elseif($query->rowCount <= 0){
-  
-echo "<script> window.alert('invalid login');</script>";
-  
-
-  
-}
-}
-}
 ?>
