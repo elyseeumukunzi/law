@@ -43,38 +43,43 @@
             $cnt = 1;
             if ($query->rowCount() > 0) {
                 foreach ($results as $result) {
-              ?>
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="card card-success">
-                        <!-- /.card-header -->
-                        <div class="card-header">
-                            <h3 class="card-title"><?php echo $result->tittle; ?></h3>
-                        </div>
-                        <!-- form start -->
-                        <form>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card card-warning">
-                                            <div class="card-header">
-                                                <p><span class="fa fa-info"></span> <?php echo $result->description; ?></p>
+                    ?>
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="card card-success">
+                                <!-- /.card-header -->
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <?php echo $result->tittle; ?>
+                                    </h3>
+                                </div>
+                                <!-- form start -->
+                                <form>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card card-warning">
+                                                    <div class="card-header">
+                                                        <p><span class="fa fa-info"></span>
+                                                            <?php echo $result->description; ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                You can download the attachement here: <button class="btn btn-default"><i
+                                                        class="fa fa-download"></i></button>
                                             </div>
                                         </div>
-                                        You can download the attachement here: <button class="btn btn-default"><i class="fa fa-download"></i></button>
-                                    </div>
-                                </div>
 
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- /.container-fluid -->
-            </section>
-            <?php   }
-            } 
+                        </div>
+                        <!-- /.container-fluid -->
+                    </section>
+                <?php }
+            }
             ?>
-            
+
             <section class="content">
                 <div class="container-fluid">
                     <div class="card card-info">
@@ -85,25 +90,28 @@
                         <!-- form start -->
                         <form method="POST">
                             <div class="card-body">
-                                
+
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <div class="card card-default">
+                                        <div class="card card-default">
                                             <div class="card-header">
-                                                <p><input type="text" name="tittle" class="form-control" placeholder="Tittle"></p>
-                                               
-                                            </div>
-                                        </div>   
-                                    <div class="card card-warning">
-                                            <div class="card-header">
-                                                <p><textarea class="form-control">
+                                                <p><input type="text" name="tittle" class="form-control"
+                                                        placeholder="Tittle"></p>
 
-                                                </textarea></p>
-                                                <input type="file" name="file">
-                                                <button class="btn btn-primary" type="submit" name="follow">Save</button>
                                             </div>
                                         </div>
-                                       
+                                        <div class="card card-warning">
+                                            <div class="card-header">
+                                                <p><textarea class="form-control" name="desc">
+
+                                                </textarea>
+                                                </p>
+                                                <input type="file" name="file">
+                                                <button class="btn btn-primary" type="submit"
+                                                    name="follow">Save</button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -126,5 +134,21 @@
 
 </html>
 <?php
+if (isset($_POST['follow'])) {
+    $tittle = $_POST['tittle'];
+    $file = $_GET['lawid'];
+    $desc = $_POST['desc'];
+    $dates=date('d/m/Y');
+    $sql = "INSERT INTO followup (appointmentid,tittle,description,attachement,dates) values (?,?,?,?,?)";
+    $query = $dbh->prepare($sql);
+    $query->execute(array($appid, $tittle, $desc, $file, $dates));
 
+    if ($query) {
+        echo "<script>alert('Follw up added');window.location='followup.php?appid=$appid'; </script>";
+    } else {
+        echo "<script>alert('Something went wrong please retry'); </script>";
+
+    }
+
+}
 ?>
