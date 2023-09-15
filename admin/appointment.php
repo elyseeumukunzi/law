@@ -4,6 +4,29 @@
 
 <?php include 'includes/header.php';
 include('includes/config.php');
+if(isset($_GET['action']))
+{
+   $action=$_GET['action'];
+   $appid=$_GET['appid'];
+   if($action == 'aprove')
+   {
+      $status=1;
+      $sql="update appointments SET status = ? where appid = ? ";
+      $query = $dbh->prepare($sql);
+      $query->execute(array($status,$appid));
+      
+      if($query)
+      {
+      echo "<script>alert('Appointment approved');window.location='appointment.php'; </script>";
+      }
+      else 
+      {
+         echo "<script>alert('Something went wrong please retry'); </script>";
+      
+      }
+
+   }
+}
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -45,7 +68,7 @@ include('includes/config.php');
                      <table id="example1" class="table table-bordered table-hover">
                         <thead>
                            <tr>
-                              <th>Ref No.</th>
+                              <th>Dates</th>
                               <th>Customer</th>
                               <th>Contact</th>
                               <th>Email</th>
@@ -56,7 +79,7 @@ include('includes/config.php');
                         <tbody>
                            <?php
                            $lawid = $_SESSION['userid'];
-                           $sql = "SELECT * from services,appointments,users WHERE users.userid=appointments.userid AND appointments.serviceid=services.serviceid AND appointments.lawyerid=?";
+                           $sql = "SELECT * from services,users,appointments WHERE users.userid=appointments.userid AND appointments.serviceid=services.serviceid AND appointments.lawyerid=?";
                            $query = $dbh->prepare($sql);
                            $query->execute(array($lawid));
                            $results = $query->fetchAll(PDO::FETCH_OBJ);
@@ -66,13 +89,34 @@ include('includes/config.php');
                                  $status = $result->status; ?>
 
                                  <tr>
-                                    <td><?php echo $cnt ?></td>
+                                    <td><?php echo $result->dates; ?></td>
                                     <td><?php echo $result->fullname; ?></td>
                                     <td><?php echo $result->contacts; ?></td>
                                     <td><?php echo $result->email; ?></td>
                                     <td><?php echo $result->name; ?></td>
                                     
-                                    <td><span class="badge bg-warning">approved</span></td>
+                                    <td>
+                                       <?php
+                                       if($status == 1)
+                                       {
+                                          ?>
+                                       <span class="badge bg-warning">approved</span>
+                                       <a href="followup.php?appid=<?php echo $result->appid; ?>"><button class="btn btn-default"><i class="fa fa-arrow-right"></i></button></a>
+                                    </td>
+                                       
+
+                                          <?php 
+                                       } 
+                                       elseif($status == 0)
+                                       {
+                                          ?>
+                                       <span class="badge bg-info">Waiting</span>
+                                       <a href="appointment.php?action=aprove&appid=<?php echo $result->appid; ?>"> <img src="images/offBlue.png"></td></a>
+
+                                          <?php
+
+                                       }
+                                       ?>
                                  </tr>
                               <?php $cnt++; }
                            } ?>

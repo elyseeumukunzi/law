@@ -133,7 +133,7 @@
            {
             ?>
               <li class="nav-item">
-               <a href="appointment.php" class="nav-link">
+               <a href="lawyerprofile.php" class="nav-link">
                   <i class="nav-icon fa fa-user"></i>
                   <p>
                      Profile
