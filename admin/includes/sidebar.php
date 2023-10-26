@@ -22,14 +22,7 @@
                </a>
             </li>
 
-            <li class="nav-item">
-               <a href="index.php" class="nav-link">
-               <i class="nav-icon fa fa-calendar-alt"></i>
-                  <p>
-                     My Appointment
-                  </p>
-               </a>
-            </li>
+           
             <li class="nav-item">
                <a href="index.php" class="nav-link">
                <i class="nav-icon fa fa-file"></i>
@@ -39,7 +32,7 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="index.php" class="nav-link">
+               <a href="myappointment.php" class="nav-link">
                <i class="nav-icon fa fa-calendar"></i>
                   <p>
                      My Appointments

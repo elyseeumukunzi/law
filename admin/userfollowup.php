@@ -104,7 +104,7 @@
                             <h3 class="card-title">Add Something</h3>
                         </div>
                         <!-- form start -->
-                        <form method="POST" enctype="multipart/form-data">
+                        <form method="POST">
                             <div class="card-body">
 
                                 <div class="row">
@@ -122,7 +122,7 @@
 
                                                 </textarea>
                                                 </p>
-                                                <input type="file" name="attachement">
+                                                <input type="file" name="file">
                                                 <button class="btn btn-primary" type="submit"
                                                     name="follow">Save</button>
                                             </div>
@@ -152,22 +152,16 @@
 <?php
 if (isset($_POST['follow'])) {
     $tittle = $_POST['tittle'];
-    $file = $_FILES['attachement']['name'];
-    $tempname=$_FILES['attachement']['tmp_name'];
-    $folder="files/";
-
+    $file = $_GET['lawid'];
     $desc = $_POST['desc'];
     $dates=date('d/m/Y');
-    $from="lawyer";
+    $from='user';
     $sql = "INSERT INTO followup (appointmentid,tittle,description,attachement,fromsender,dates) values (?,?,?,?,?,?)";
     $query = $dbh->prepare($sql);
-    $query->execute(array($appid, $tittle, $desc, $file,$from,$dates));
+    $query->execute(array($appid, $tittle, $desc, $file, $from, $dates));
 
     if ($query) {
-    $upload=move_uploaded_file($tempname, $folder.$file);
-
         echo "<script>alert('Follw up added');window.location='followup.php?appid=$appid'; </script>";
-
     } else {
         echo "<script>alert('Something went wrong please retry'); </script>";
 

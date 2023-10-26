@@ -1,7 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include 'includes/header.php' ?>
+
+<?php include 'includes/header.php';
+include('includes/config.php');
+if(isset($_GET['action']))
+{
+   $action=$_GET['action'];
+   $appid=$_GET['appid'];
+   if($action == 'aprove')
+   {
+      $status=1;
+      $sql="update appointments SET status = ? where appid = ? ";
+      $query = $dbh->prepare($sql);
+      $query->execute(array($status,$appid));
+      
+      if($query)
+      {
+      echo "<script>alert('Appointment approved');window.location='appointment.php'; </script>";
+      }
+      else 
+      {
+         echo "<script>alert('Something went wrong please retry'); </script>";
+      
+      }
+
+   }
+}
+?>
 
 <body class="hold-transition sidebar-mini layout-fixed">
    <div class="wrapper">
@@ -16,8 +42,8 @@
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                     <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-hand-holding-heart"></span>
-                        Services</h1>
+                     <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-calendar-alt"></span>
+                        Appointments</h1>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
@@ -26,10 +52,6 @@
                         <li class="breadcrumb-item active">Office</li>
                      </ol>
                   </div>
-                  <a class="btn btn-sm elevation-2" href="add-attorney.php"
-                     style="margin-top: 20px;margin-left: 10px;background-color: #05445E;color: #ddd;"><i
-                        class="fa fa-plus"></i>
-                     Add New</a>
                   <!-- /.col -->
                </div>
                <!-- /.row -->
@@ -46,35 +68,57 @@
                      <table id="example1" class="table table-bordered table-hover">
                         <thead>
                            <tr>
-                              <th>No</th>
+                              <th>Dates</th>
+                              <th>Lawyer</th>
+                              <th>Contact</th>
+                              <th>Email</th>
                               <th>Service Name</th>
-                              <th>Description</th>
-                              <th>Rate</th>
-                              <th class="text-right">Action</th>
+                              <th>Status</th>
                            </tr>
                         </thead>
                         <tbody>
                            <?php
                            $lawid = $_SESSION['userid'];
-                           $sql = "SELECT * from services WHERE lawyerid=? order by serviceid desc";
+                           $sql = "SELECT * from services,lawyer,appointments WHERE lawyer.lawid=appointments.lawyerid AND appointments.serviceid=services.serviceid AND appointments.userid=?";
                            $query = $dbh->prepare($sql);
                            $query->execute(array($lawid));
                            $results = $query->fetchAll(PDO::FETCH_OBJ);
                            $cnt = 1;
                            if ($query->rowCount() > 0) {
-                              foreach ($results as $result) { ?>
+                              foreach ($results as $result) {
+                                 $status = $result->status; ?>
+
                                  <tr>
-                                    <td><?php echo $cnt; ?></td>
+                                    <td><?php echo $result->dates; ?></td>
+                                    <td><?php echo $result->fullname; ?></td>
+                                    <td><?php echo $result->contacts; ?></td>
+                                    <td><?php echo $result->email; ?></td>
                                     <td><?php echo $result->name; ?></td>
-                                    <td><?php echo $result->Description; ?></td>
-                                    <td><span class="fa fa-star"></span></td>
-                                    <td class="text-right">
-                                       <a class="btn btn-sm btn-success" href="#"><i class="fa fa-edit"></i> edit</a>
-                                       <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
-                                             class="fa fa-trash-alt"></i> delete</a>
+                                    
+                                    <td>
+                                       <?php
+                                       if($status == 1)
+                                       {
+                                          ?>
+                                       <span class="badge bg-warning">approved</span>
+                                       <a href="userfollowup.php?appid=<?php echo $result->appid; ?>"><button class="btn btn-default"><i class="fa fa-arrow-right"></i></button></a>
                                     </td>
+                                       
+
+                                          <?php 
+                                       } 
+                                       elseif($status == 0)
+                                       {
+                                          ?>
+                                       <span class="badge bg-info">Waiting</span>
+                                       
+
+                                          <?php
+
+                                       }
+                                       ?>
                                  </tr>
-                              <?php $cnt=$cnt+1;}
+                              <?php $cnt++; }
                            } ?>
 
 

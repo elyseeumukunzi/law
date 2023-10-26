@@ -175,7 +175,7 @@
                                         $query->execute(array($userid,$lawid, $service,$dates,$status));
 
                                         if ($query) {
-                                            echo "<script>alert('appointment made');window.location='viewlawyer.php?lawid=$lawid'; </script>";
+                                            echo "<script>alert('appointment made');window.location='request.php?lawid=$lawid'; </script>";
                                         } else {
                                             echo "<script>alert('Something went wrong please retry'); </script>";
 

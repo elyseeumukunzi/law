@@ -57,7 +57,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8">
-							<figure><img src="dummy/lawyer2.jpg" alt=""></figure>
+							<figure><img src="dummy/lawyer2.png" alt=""></figure>
 						</div>
 						<div class="col-md-4">
 							<div class="hero-content">

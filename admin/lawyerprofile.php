@@ -134,8 +134,8 @@
                                             <div class="form-group">
                                                 <label>SERVICE NAME</label>
                                                 <input type="text" class="form-control" name="name"
-                                                    placeholder="Service name" required>
-                                            </div>
+                                                    placeholder="Service name" required><br>
+                                                <textarea class="form-control" name="desc">Service description here</textarea>                                            </div>
 
                                         </div>
                                         <div class="card-footer">
@@ -146,9 +146,11 @@
                                     if (isset($_POST['save'])) {
                                         $service = $_POST['name'];
                                         $lawid = $_SESSION['userid'];
-                                        $sql = "INSERT INTO services (name,lawyerid) values (?,?)";
+                                        $description = $_POST['desc'];
+
+                                        $sql = "INSERT INTO services (name,Description,lawyerid) values (?,?,?)";
                                         $query = $dbh->prepare($sql);
-                                        $query->execute(array($service, $lawid));
+                                        $query->execute(array($service,$description, $lawid));
 
                                         if ($query) {
                                             echo "<script>alert('service added');window.location='lawyerprofile.php'; </script>";
