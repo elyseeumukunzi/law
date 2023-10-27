@@ -15,14 +15,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6 animated bounceInRight">
-                            <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-file"></span>Edit Service
+                            <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-file"></span><span
+                                    class="fa fa-plus"></span>Add Service
                             </h1>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">edit service</li>
+                                <li class="breadcrumb-item active">Add service</li>
                             </ol>
                         </div>
                         <!-- /.col -->
@@ -36,18 +37,7 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="card card-info">
-                        <?php
-                        $serviceid = $_GET['serviceid'];
-                        $lawid = $_SESSION['userid'];
-                        $sql = "SELECT * from services WHERE serviceid=? LIMIT 1";
-                        $query = $dbh->prepare($sql);
-                        $query->execute(array($serviceid));
-                        $results = $query->fetchAll(PDO::FETCH_OBJ);
-                        $cnt = 1;
-                        if ($query->rowCount() > 0) {
-                            foreach ($results as $result) {
-                            }
-                        } ?>
+
 
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -59,24 +49,22 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label><span class="fa fa-pen"></span>
-                                                        <?php echo $result->name; ?>
+                                                        ADD New Service
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Service name</label>
-                                                    <input type="text" class="form-control"
-                                                        value="<?php echo $result->name; ?>" name="name"
-                                                        placeholder="Law Office">
+                                                    <input type="text" class="form-control" name="name"
+                                                        placeholder="Service name">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Service Description</label>
-                                                    <textarea class="form-control"
-                                                        name="desc"></textarea>
+                                                    <textarea class="form-control" name="desc"></textarea>
                                                 </div>
                                             </div>
 
@@ -95,15 +83,15 @@
                         <?php
                         if (isset($_POST['save'])) {
                             $service = $_POST['name'];
-                            $serviceid = $_GET['serviceid'];
+                            $lawid = $_SESSION['userid'];
                             $description = $_POST['desc'];
 
-                            $sql = "UPDATE services set name=?,Description=? WHERE serviceid=? ";
+                            $sql = "INSERT INTO services (name,Description,lawyerid) values (?,?,?)";
                             $query = $dbh->prepare($sql);
-                            $query->execute(array($service, $description, $serviceid));
+                            $query->execute(array($service, $description, $lawid));
 
                             if ($query) {
-                                echo "<script>alert('service updated');window.location='services.php'; </script>";
+                                echo "<script>alert('service added');window.location='services.php'; </script>";
                             } else {
                                 echo "<script>alert('Something went wrong please retry'); </script>";
 
