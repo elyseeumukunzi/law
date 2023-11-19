@@ -26,7 +26,7 @@
                         <li class="breadcrumb-item active">Office</li>
                      </ol>
                   </div>
-                  <a class="btn btn-sm elevation-2" href="add-attorney.php"
+                  <a class="btn btn-sm elevation-2" href="addservice.php"
                      style="margin-top: 20px;margin-left: 10px;background-color: #05445E;color: #ddd;"><i
                         class="fa fa-plus"></i>
                      Add New</a>
@@ -64,18 +64,47 @@
                            if ($query->rowCount() > 0) {
                               foreach ($results as $result) { ?>
                                  <tr>
-                                    <td><?php echo $cnt; ?></td>
-                                    <td><?php echo $result->name; ?></td>
-                                    <td><?php echo $result->Description; ?></td>
+                                    <td>
+                                       <?php echo $cnt; ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $result->name; ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $result->Description; ?>
+                                    </td>
                                     <td><span class="fa fa-star"></span></td>
                                     <td class="text-right">
-                                       <a class="btn btn-sm btn-success" href="#"><i class="fa fa-edit"></i> edit</a>
-                                       <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
+                                       <a class="btn btn-sm btn-success"
+                                          href="editservice.php?serviceid=<?php echo $result->serviceid; ?>"><i
+                                             class="fa fa-edit"></i> edit</a>
+                                       <a class="btn btn-sm btn-danger" href="services.php?delete=delete&serviceid=<?php echo $result->serviceid; ?>" ><i
                                              class="fa fa-trash-alt"></i> delete</a>
                                     </td>
                                  </tr>
-                              <?php $cnt=$cnt+1;}
-                           } ?>
+                                 <?php $cnt = $cnt + 1;
+                              }
+                           }
+
+                           if (isset($_GET["delete"])) {
+                                  $serviceid = $_GET['serviceid'];
+      
+                                  $sql = "DELETE FROM services where serviceid=?";
+                                  $query = $dbh->prepare($sql);
+                                  $query->execute(array($serviceid));
+      
+                                  if ($query) {
+                                      echo "<script>alert('service deleted');window.location='services.php'; </script>";
+                                  } else {
+                                      echo "<script>alert('Something went wrong please retry'); </script>";
+      
+                                  }
+      
+                              }
+                              ?>
+
+                           }
+                           ?>
 
 
                         </tbody>
@@ -97,7 +126,7 @@
             <div class="modal-body text-center">
                <img src="../asset/img/sent.png" alt="" width="50" height="46">
                <h3>Are you sure want to delete this User?</h3>
-               <div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
+               <div class="m-t-20"> <a href="services.php?delete=delete" class="btn btn-white" data-dismiss="modal">Close</a>
                   <button type="submit" class="btn btn-danger">Delete</button>
                </div>
             </div>
