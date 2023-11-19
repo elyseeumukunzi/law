@@ -4,25 +4,20 @@
 
 <?php include 'includes/header.php';
 include('includes/config.php');
-if(isset($_GET['action']))
-{
-   $action=$_GET['action'];
-   $appid=$_GET['appid'];
-   if($action == 'aprove')
-   {
-      $status=1;
-      $sql="update appointments SET status = ? where appid = ? ";
+if (isset($_GET['action'])) {
+   $action = $_GET['action'];
+   $appid = $_GET['appid'];
+   if ($action == 'aprove') {
+      $status = 1;
+      $sql = "update appointments SET status = ? where appid = ? ";
       $query = $dbh->prepare($sql);
-      $query->execute(array($status,$appid));
-      
-      if($query)
-      {
-      echo "<script>alert('Appointment approved');window.location='appointment.php'; </script>";
-      }
-      else 
-      {
+      $query->execute(array($status, $appid));
+
+      if ($query) {
+         echo "<script>alert('Appointment approved');window.location='appointment.php'; </script>";
+      } else {
          echo "<script>alert('Something went wrong please retry'); </script>";
-      
+
       }
 
    }
@@ -43,7 +38,7 @@ if(isset($_GET['action']))
                <div class="row mb-2">
                   <div class="col-sm-6">
                      <h1 class="m-0" style="color: rgb(31,108,163);"><span class="fa fa-calendar-alt"></span>
-                        Appointments</h1>
+                        My Cases</h1>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
@@ -73,6 +68,7 @@ if(isset($_GET['action']))
                               <th>Contact</th>
                               <th>Email</th>
                               <th>Service Name</th>
+                              <th>Price</th>
                               <th>Status</th>
                            </tr>
                         </thead>
@@ -86,39 +82,74 @@ if(isset($_GET['action']))
                            $cnt = 1;
                            if ($query->rowCount() > 0) {
                               foreach ($results as $result) {
-                                 $status = $result->status; ?>
+                                 $status = $result->status;
+                                 $paymentstatus = $result->paymentstatus;
+                                 ?>
 
                                  <tr>
-                                    <td><?php echo $result->dates; ?></td>
-                                    <td><?php echo $result->fullname; ?></td>
-                                    <td><?php echo $result->contacts; ?></td>
-                                    <td><?php echo $result->email; ?></td>
-                                    <td><?php echo $result->name; ?></td>
-                                    
+                                    <td>
+                                       <?php echo $result->dates; ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $result->fullname; ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $result->contacts; ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $result->email; ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $result->name; ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $result->price;
+                                       if ($result->price == '') {
+                                          echo "No price yet";
+                                       } else {
+                                          if($paymentstatus == 2)
+                                          {
+                                             echo "<span class='badge bg-warning'>Waiting</span>";
+                                          }
+                                          elseif($paymentstatus == 1 )
+                                          {
+                                             echo "<span class='badge bg-warning'>Approved</span>";
+                                             
+                                          }
+                                          else{
+                                          ?>
+                                          <a href="payservice.php?appid=<?php echo $result->appid; ?>"><button class="btn btn-success btn-sm">Pay</button></a>
+                                          <?php
+                                          }
+                                       }
+                                       ?>
+
+
+                                    </td>
+
                                     <td>
                                        <?php
-                                       if($status == 1)
-                                       {
+                                       if ($status == 1) {
                                           ?>
-                                       <span class="badge bg-warning">approved</span>
-                                       <a href="userfollowup.php?appid=<?php echo $result->appid; ?>"><button class="btn btn-default"><i class="fa fa-arrow-right"></i></button></a>
-                                    </td>
-                                       
+                                          <span class="badge bg-warning">approved</span>
+                                          <a href="userfollowup.php?appid=<?php echo $result->appid; ?>"><button
+                                                class="btn btn-default"><i class="fa fa-arrow-right"></i></button></a>
+                                       </td>
 
-                                          <?php 
-                                       } 
-                                       elseif($status == 0)
-                                       {
+
+                                       <?php
+                                       } elseif ($status == 0) {
                                           ?>
                                        <span class="badge bg-info">Waiting</span>
-                                       
 
-                                          <?php
+
+                                       <?php
 
                                        }
                                        ?>
                                  </tr>
-                              <?php $cnt++; }
+                                 <?php $cnt++;
+                              }
                            } ?>
 
 

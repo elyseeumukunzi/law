@@ -24,7 +24,7 @@
 
            
             <li class="nav-item">
-               <a href="index.php" class="nav-link">
+               <a href="retainerservice.php" class="nav-link">
                <i class="nav-icon fa fa-file"></i>
                   <p>
                      Retainer service
@@ -35,7 +35,7 @@
                <a href="myappointment.php" class="nav-link">
                <i class="nav-icon fa fa-calendar"></i>
                   <p>
-                     My Appointments
+                     My Cases
                   </p>
                </a>
             </li>
@@ -60,7 +60,7 @@
 
            <?php
            }
-           elseif($role == 'admin')
+           elseif($role == ' SECRETARY')
            { ?>
             <li class="nav-item">
                <a href="index.php" class="nav-link">
@@ -99,15 +99,31 @@
                <a href="reports.php" class="nav-link">
                   <i class="nav-icon fa fa-file"></i>
                   <p>
-                     Ongoing services
+                     Ongoing Cases
                   </p>
                </a>
             </li>
             <li class="nav-item">
-               <a href="reports.php" class="nav-link">
+               <a href="appointment.php" class="nav-link">
                   <i class="nav-icon fa fa-calendar"></i>
                   <p>
                      Apointments
+                  </p>
+               </a>
+            </li>
+            <li class="nav-item">
+               <a href="paymentdetails.php" class="nav-link">
+                  <i class="nav-icon fa fa-dollar-sign"></i>
+                  <p>
+                     Payment details
+                  </p>
+               </a>
+            </li>
+            <li class="nav-item">
+               <a href="hr.php" class="nav-link">
+                  <i class="nav-icon fa fa-users"></i>
+                  <p>
+                     HR Registry
                   </p>
                </a>
             </li>
@@ -146,6 +162,22 @@
                   <i class="nav-icon fa fa-hand-holding-heart"></i>
                   <p>
                      My Services
+                  </p>
+               </a>
+            </li>
+            <li class="nav-item">
+               <a href="cases.php" class="nav-link">
+                  <i class="nav-icon fa fa-book"></i>
+                  <p>
+                    Case Management
+                  </p>
+               </a>
+            </li>
+            <li class="nav-item">
+               <a href="payments.php" class="nav-link">
+                  <i class="nav-icon fa fa-dollar-sign"></i>
+                  <p>
+                    Payment Management
                   </p>
                </a>
             </li>

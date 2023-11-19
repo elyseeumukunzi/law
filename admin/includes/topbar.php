@@ -13,7 +13,7 @@ session_start();
       </li>
    </ul>
    <?php
- echo $_SESSION['fname']." <font style='color:white;'>" ." ". $_SESSION['role']; ?>  </font>
+ echo $_SESSION['fname']." <font style='color:white;'>" ."  "." ". $_SESSION['role']; ?>  </font>
    <!-- Right navbar links -->
    <ul class="navbar-nav ml-auto">
       <li class="nav-item">
